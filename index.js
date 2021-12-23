@@ -34,7 +34,8 @@ app.get("/getdata" ,validateToken, async(request,response)=>{
     const client = await createconnections()
     const result = await client.db("kepper").collection("user").find({}).toArray()
     response.send(result)
-  
+   response.header("Access-Control-Allow-Origin","*")
+   response.header("Access-Control-Allow-Headers","Origin,X-Requested-With,Content-Type,Accept")
 })
 
 //registration
@@ -62,7 +63,8 @@ app.post("/register" , async (request,response)=>{
 //login
 app.post("/login" , async(request,response)=>{
     const client= await createconnections()
-   
+    response.header("Access-Control-Allow-Origin","*")
+   response.header("Access-Control-Allow-Headers","Origin,X-Requested-With,Content-Type,Accept")
    const{username,password} = request.body;
    
    const result = await client.db("kepper").collection("user").findOne({username:username})
