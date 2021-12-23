@@ -2,9 +2,10 @@
 const jwt = require("jsonwebtoken");
 const verify = require("jsonwebtoken");
 const cors = require("cors");
-app.use(cors())
+
 
 const createTokens = (user) => {
+  app.use(cors())
   const accessToken = jwt.sign(
     { id: user._id },
     process.env.KEY,
@@ -17,7 +18,7 @@ const createTokens = (user) => {
 };
 
 const validateToken = (req, res, next) => {
-
+app.use(cors())
   try {
     const token = req.header("access-token");
     if (!token) return res.status(403).send("Access denied.");
