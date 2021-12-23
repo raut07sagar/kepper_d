@@ -10,7 +10,7 @@ const {validateToken} = require("./JWT")
 const CORS = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
-const PORT = 1234
+const PORT = process.env.PORT
 
 async function createconnections() {
 
