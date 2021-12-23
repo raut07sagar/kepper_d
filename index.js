@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const {createTokens} = require("./JWT");
 const { response, request } = require("express");
 const {validateToken} = require("./JWT")
-const CORS = require('cors');
+const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const PORT = process.env.PORT
@@ -25,7 +25,7 @@ app.use(cookieParser())
 app.get("/",(req,res)=>{
     res.send("hi all")
 })
-app.use(CORS())
+app.use(cors())
 
 
 
