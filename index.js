@@ -105,6 +105,18 @@ app.post("/login" , async(request,response)=>{
     }
 }
 });
+const createTokens = (user) => {
+ 
+  const accessToken = jwt.sign(
+    { id: user._id },
+    process.env.KEY,
+    {
+      expiresIn: "30d"
+    }
+  );
+
+  return accessToken;
+};
 
 
 
@@ -136,18 +148,6 @@ const user= await client.db("kepper").collection("kepper").deleteOne({_id: new m
 
 })
 
-const createTokens = (user) => {
- 
-  const accessToken = jwt.sign(
-    { id: user._id },
-    process.env.KEY,
-    {
-      expiresIn: "30d"
-    }
-  );
-
-  return accessToken;
-};
 
 
 
