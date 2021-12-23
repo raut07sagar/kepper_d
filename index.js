@@ -1,12 +1,15 @@
+
 const express = require("express")
 const app = express()
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken");
+const verify = require("jsonwebtoken");
 const MongoClient = require('mongodb').MongoClient
 const mongodb =  require("mongodb")
 const cookieParser = require("cookie-parser");
-const {createTokens} = require("./JWT");
+// const {createTokens} = require("./JWT");
 const { response, request } = require("express");
-const {validateToken} = require("./JWT")
+// const {validateToken} = require("./JWT")
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -121,9 +124,32 @@ const user= await client.db("kepper").collection("kepper").deleteOne({_id: new m
 
 })
 
+const createTokens = (user) => {
+ 
+  const accessToken = jwt.sign(
+    { id: user._id },
+    process.env.KEY,
+    {
+      expiresIn: "30d"
+    }
+  );
 
+  return accessToken;
+};
 
+const validateToken = (req, res, next) => {
 
+  try {
+    const token = req.header("access-token");
+    if (!token) return res.status(403).send("Access denied.");
+
+    const decoded = jwt.verify(token,process.env.KEY);
+    req.user = decoded;
+    next();
+} catch (error) {
+    res.status(400).send("Invalid token");
+}
+  };
 
 
 app.listen(PORT, () => console.log("server is started in port 1234"));
