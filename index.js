@@ -1,20 +1,17 @@
-
 const express = require("express")
 const app = express()
 const bcrypt = require("bcrypt")
-// const jwt = require("jsonwebtoken");
-// const verify = require("jsonwebtoken");
 const MongoClient = require('mongodb').MongoClient
 const mongodb =  require("mongodb")
 const cookieParser = require("cookie-parser");
 const {createTokens} = require("./JWT");
 const { response, request } = require("express");
 const {validateToken} = require("./JWT")
-const cors = require('cors');
+const CORS = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const PORT = process.env.PORT
-app.use(cors())
+
 async function createconnections() {
 
     const MONGO_URL = process.env.MONGO_URL
@@ -28,7 +25,7 @@ app.use(cookieParser())
 app.get("/",(req,res)=>{
     res.send("hi all")
 })
-
+app.use(CORS())
 
 
 
@@ -37,7 +34,7 @@ app.get("/getdata" ,validateToken, async(request,response)=>{
     const client = await createconnections()
     const result = await client.db("kepper").collection("user").find({}).toArray()
     response.send(result)
-
+  
 })
 
 //registration
@@ -100,7 +97,6 @@ app.post("/login" , async(request,response)=>{
 
 
 
-
 //opeartions on data base
 app.post("/insertToKepper", async(request,response)=>{
     const client = await createconnections()
@@ -124,6 +120,7 @@ const user= await client.db("kepper").collection("kepper").deleteOne({_id: new m
 
 
 })
+
 
 
 
