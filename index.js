@@ -11,7 +11,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const PORT = process.env.PORT
-
+app.use(cors())
 async function createconnections() {
 
     const MONGO_URL = process.env.MONGO_URL
@@ -25,7 +25,7 @@ app.use(cookieParser())
 app.get("/",(req,res)=>{
     res.send("hi all")
 })
-app.use(cors())
+
 
 
 
