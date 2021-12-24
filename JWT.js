@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 const verify = require("jsonwebtoken");
 
 
-const createTokens = async (user) => {
+const createTokens =  (user) => {
  
-  const accessToken = await jwt.sign(
+  const accessToken =  jwt.sign(
     { id: user._id },
     process.env.KEY,
     {
