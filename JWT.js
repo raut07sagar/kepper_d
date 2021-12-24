@@ -16,13 +16,13 @@ const createTokens = async (user) => {
   return accessToken;
 };
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
 
   try {
     const token = req.header("access-token");
     if (!token) return res.status(403).send("Access denied.");
 
-    const decoded = jwt.verify(token,process.env.KEY);
+    const decoded = await jwt.verify(token,process.env.KEY);
     req.user = decoded;
     next();
 } catch (error) {
