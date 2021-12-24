@@ -6,7 +6,7 @@ const verify = require("jsonwebtoken");
 const createTokens = async (user) => {
  
   const accessToken = await jwt.sign(
-    { id: user._id },
+    { id: user.username },
     process.env.key,
     {
       expiresIn: "30d"
