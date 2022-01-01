@@ -2,6 +2,18 @@
 const jwt = require("jsonwebtoken");
 const verify = require("jsonwebtoken");
 
+const createTokens = async (user) => {
+ 
+  const accessToken = await jwt.sign(
+    { id: user._id },
+    "SECRET",
+    {
+      expiresIn: "2h"
+    }
+  );
+
+  return accessToken;
+};
 
 
 const validateToken =  (req, res, next) => {
@@ -10,7 +22,7 @@ const validateToken =  (req, res, next) => {
     const token = req.header("access-token");
     if (!token) return res.status(403).send("Access denied.");
 
-    const decoded =  jwt.verify(token,process.env.KEY);
+    const decoded =  jwt.verify(token,"SECRET");
     req.user = decoded;
     next();
 } catch (error) {
