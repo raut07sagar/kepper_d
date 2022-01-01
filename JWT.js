@@ -11,7 +11,7 @@ const createTokens = async (user) => {
       expiresIn: "2h"
     }
   );
-console.log("token",accessToken)
+console.log("tokens",accessToken)
   return accessToken
 };
 
