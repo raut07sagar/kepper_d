@@ -3,18 +3,6 @@ const jwt = require("jsonwebtoken");
 const verify = require("jsonwebtoken");
 
 
-const createTokens = async (user) => {
- 
-  const accessToken = await jwt.sign(
-    { id: user._id },
-    process.env.KEY,
-    {
-      expiresIn: "2h"
-    }
-  );
-
-  return accessToken;
-};
 
 const validateToken =  (req, res, next) => {
 
