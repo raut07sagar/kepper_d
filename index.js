@@ -87,6 +87,7 @@ app.post("/login" , async(request,response)=>{
     else{
         
         const accestoken =  createTokens(result)
+        console.log(accestoken)
         response.json({messege:"valid logged in",token:accestoken})
 
         
