@@ -63,18 +63,6 @@ app.post("/register" , async (request,response)=>{
 
 
 
-const createTokens = async (user) => {
- 
-  const accessToken = await jwt.sign(
-    { id: user._id },
-    process.env.KEY,
-    {
-      expiresIn: "2h"
-    }
-  );
-
-  return accessToken;
-};
 
 
 //login
