@@ -12,7 +12,7 @@ const createTokens = async (user) => {
     }
   );
 console.log("token",accessToken)
-  return accessToken;
+  return accessToken
 };
 
 
