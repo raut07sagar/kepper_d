@@ -85,7 +85,14 @@ app.post("/login" , async(request,response)=>{
         response.send("username and password not match")
     }
     else{
-        response.json({messege:"valid logged in",token:createTokens(result)})
+      const accessToken =  await jwt.sign(
+            { id: result.username },
+            "SECRET",
+            {
+              expiresIn: "2h"
+            }
+          );
+        response.json({messege:"valid logged in",token:accessToken})
     }
 }
 });
