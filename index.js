@@ -24,9 +24,7 @@ async function createconnections() {
  }
 app.use(express.json())
 app.use(cookieParser())
-app.get("/",(req,res)=>{
-    res.send("hi all")
-})
+
 app.use(CORS())
 
 
@@ -49,6 +47,10 @@ const validateToken = async (req, res, next) => {
 
 
 
+
+app.get("/",(req,res)=>{
+    res.send("hi all")
+})
 
 
 app.get("/getdata" ,validateToken, async(request,response)=>{
