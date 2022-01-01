@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 const MongoClient = require('mongodb').MongoClient
 const mongodb =  require("mongodb")
 const cookieParser = require("cookie-parser");
-const {createTokens} = require("./JWT");
+// const {createTokens} = require("./JWT");
 const { response, request } = require("express");
 const {validateToken} = require("./JWT")
 const CORS = require('cors');
@@ -58,6 +58,22 @@ app.post("/register" , async (request,response)=>{
    }
 
 })
+
+
+
+const createTokens = async (user) => {
+ 
+  const accessToken = await jwt.sign(
+    { id: user._id },
+    process.env.KEY,
+    {
+      expiresIn: "2h"
+    }
+  );
+
+  return accessToken;
+};
+
 
 //login
 app.post("/login" , async(request,response)=>{
