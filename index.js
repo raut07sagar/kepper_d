@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const {createTokens} = require("./JWT");
 const { response, request } = require("express");
 const {validateToken} = require("./JWT")
+const jwt = require("jsonwebtoken");
 const CORS = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
