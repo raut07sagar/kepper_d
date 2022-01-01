@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt")
 const MongoClient = require('mongodb').MongoClient
 const mongodb =  require("mongodb")
 const cookieParser = require("cookie-parser");
-const {createTokens} = require("./JWT");
+// const {createTokens} = require("./JWT");
 const { response, request } = require("express");
-const {validateToken} = require("./JWT")
+// const {validateToken} = require("./JWT")
 const jwt = require("jsonwebtoken");
 const verify = require("jsonwebtoken");
 const CORS = require('cors');
@@ -31,6 +31,21 @@ app.use(CORS())
 
 
 
+
+const validateToken = async (req, res, next) => {
+
+    try {
+      const token = req.header("access-token");
+      if (!token) return res.status(403).send("Access denied.");
+  
+      const decoded = await jwt.verify(token,"SECRET");
+      req.user = decoded;
+      next();
+  } catch (error) {
+      res.status(400).send("Invalid token");
+  }
+    };
+  
 
 
 
