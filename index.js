@@ -127,19 +127,19 @@ app.post("/login" , async(request,response)=>{
 
 
 //opeartions on data base
-app.post("/insertToKepper", async(request,response)=>{
+app.post("/insertToKepper",validateToken, async(request,response)=>{
     const client = await createconnections()
     const add_data = request.body
     const result = await client.db("kepper").collection("kepper").insertMany(add_data)
     response.send(result)
 })
-app.get("/getFromKepper", async(request,response)=>{
+app.get("/getFromKepper",validateToken, async(request,response)=>{
     const client = await createconnections()
     const result = await client.db("kepper").collection("kepper").find({}).toArray()
     response.send(result)
 
 })
-app.delete("/deleteFromKepper/:id" , async(request,response)=>{
+app.delete("/deleteFromKepper/:id" ,validateToken, async(request,response)=>{
 const id = request.params.id
 const client = await createconnections()
 const user= await client.db("kepper").collection("kepper").deleteOne({_id: new mongodb.ObjectId(id)})
