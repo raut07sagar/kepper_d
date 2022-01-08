@@ -151,6 +151,22 @@ const user= await client.db("kepper").collection("kepper").deleteOne({_id: new m
 })
 
 
+app.put("/patchkepper/:id",validateToken, async(request, response) => {
+    const id = request.params.id;
+    const client = await createconnections();
+    const user= await client.db("kepper").collection("kepper").updateOne({_id:new mongodb.ObjectId(id)},{$set:{"title":request.body.title,"data":request.body.data}})
+    // console.log(user)
+    response.send(user)
+ 
+  });
+ 
+
+
+
+
+
+
+
 
 
 
